@@ -35,6 +35,26 @@ public class MatrizTest {
         }        
     }
 
+    @Test
+    public void sumaMatricesElementoAElemento() {
+        Matriz primera = new Matriz(new double[][] {
+            { 1.0, 2.0 },
+            { 3.0, 4.0 }
+        });
+        Matriz segunda = new Matriz(new double[][] {
+            { 5.0, 6.0 },
+            { 7.0, 8.0 }
+        });
+
+        Matriz resultado = primera.suma(segunda);
+
+        assertArrayEquals(new int[] { 2, 2 }, resultado.getDimension());
+        assertEquals(6.0, resultado.getElemento(0, 0), 1e-9);
+        assertEquals(8.0, resultado.getElemento(0, 1), 1e-9);
+        assertEquals(10.0, resultado.getElemento(1, 0), 1e-9);
+        assertEquals(12.0, resultado.getElemento(1, 1), 1e-9);
+    }
+
     /*
      * Si las filas no tienen la misma longitud,
      * la matriz toma como número de columnas la longitud
@@ -129,4 +149,5 @@ public class MatrizTest {
 
         new Matriz(datos);
     }
+    
 }

@@ -112,8 +112,7 @@ public class Matriz {
 
         return resultado.toString();
     }    
-
-  public Matriz suma(Matriz otra) {
+ public Matriz suma(Matriz otra) {
         if (otra == null || otra.filas != filas || otra.columnas != columnas)
             return null;
         double[][] resultado = new double[filas][columnas];
@@ -121,14 +120,8 @@ public class Matriz {
             for (int j = 0; j < columnas; j++)
                 resultado[i][j] = datos[i][j] + otra.datos[i][j];
         return new Matriz(resultado);
-    }
-
-   public static Matriz suma(Matriz a, Matriz b) {
-        if (a == null || b == null)
-            return null;
-        return a.suma(b);
-    }
-
+}
+  
 
     public static void main(String[] args) {
         double[][] valores = {
