@@ -121,12 +121,18 @@ public class Matriz {
                 resultado[i][j] = datos[i][j] + otra.datos[i][j];
         return new Matriz(resultado);
 }
-      public static Matriz suma(Matriz a, Matriz b) {
+ public static Matriz suma(Matriz a, Matriz b) {
         if (a == null || b == null)
             return null;
         return a.suma(b);
       }
-
+ public Matriz traspuesta() {
+        double[][] resultado = new double[columnas][filas];
+        for (int i = 0; i < filas; i++)
+            for (int j = 0; j < columnas; j++)
+                resultado[j][i] = datos[i][j];
+        return new Matriz(resultado);
+    }
     public static void main(String[] args) {
         double[][] valores = {
             {1.0, 2.0, 3.0},
