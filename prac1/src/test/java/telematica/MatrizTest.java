@@ -93,6 +93,24 @@ public class MatrizTest {
         assertEquals(6.0, resultado.getElemento(2, 1), 1e-9);
     }
 
+    @Test
+    public void traspuestaEstaticoIntercambiaFilasYColumnas() {
+        Matriz original = new Matriz(new double[][] {
+            { 1.0, 2.0, 3.0 },
+            { 4.0, 5.0, 6.0 }
+        });
+
+        Matriz resultado = Matriz.traspuesta(original);
+
+        assertArrayEquals(new int[] { 3, 2 }, resultado.getDimension());
+        assertEquals(1.0, resultado.getElemento(0, 0), 1e-9);
+        assertEquals(4.0, resultado.getElemento(0, 1), 1e-9);
+        assertEquals(2.0, resultado.getElemento(1, 0), 1e-9);
+        assertEquals(5.0, resultado.getElemento(1, 1), 1e-9);
+        assertEquals(3.0, resultado.getElemento(2, 0), 1e-9);
+        assertEquals(6.0, resultado.getElemento(2, 1), 1e-9);
+    }
+
     /*
      * Si las filas no tienen la misma longitud,
      * la matriz toma como número de columnas la longitud

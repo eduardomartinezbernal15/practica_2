@@ -133,6 +133,12 @@ public class Matriz {
                 resultado[j][i] = datos[i][j];
         return new Matriz(resultado);
     }
+
+ public static Matriz traspuesta(Matriz m) {
+        if (m == null)
+            return null;
+        return m.traspuesta();
+    }
     public static void main(String[] args) {
         double[][] valores = {
             {1.0, 2.0, 3.0},
