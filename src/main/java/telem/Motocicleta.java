@@ -15,4 +15,18 @@ public class Motocicleta extends Vehiculo {
         return cilindrada;
     }
 
+    @Override
+    public String getTipo() {
+        return "Motocicleta";
+    }
+
+    @Override
+    public int getPrecioBase() {
+        switch (getCategoria()) {
+            case NORMAL: return 25;
+            case ESPECIAL: return 40;
+            case SUPERIOR: return 50;
+            default: throw new IllegalStateException("Categoría desconocida: " + getCategoria());
+        }
+    }
 }

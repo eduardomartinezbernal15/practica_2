@@ -8,7 +8,6 @@ import org.json.JSONObject;
  * Vehiculo
  */
 public abstract class Vehiculo {
-
     private String matricula;
     private Categoria categoria;
     private int annio;
@@ -45,4 +44,13 @@ public abstract class Vehiculo {
         return new JSONObject(this).toString();
     }
 
+    /**
+     * Devuelve el tipo de vehículo para su representación JSON.
+     */
+    public abstract String getTipo();
+
+    /**
+     * Calcula el precio base diario según el tipo y la categoría.
+     */
+    public abstract int getPrecioBase();
 }

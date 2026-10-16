@@ -23,6 +23,21 @@ public class VehiculoIndustrial extends Vehiculo {
         return numeroEjes;
     }
 
+    @Override
+    public String getTipo() {
+        return "VehiculoIndustrial";
+    }
+
+    @Override
+    public int getPrecioBase() {
+        switch (getCategoria()) {
+            case NORMAL: return 75;
+            case ESPECIAL: return 120;
+            case SUPERIOR: return 150;
+            default: throw new IllegalStateException("Categoría desconocida: " + getCategoria());
+        }
+    }
+
     @Override 
     public String toString() {
         return new JSONObject(this).toString();
