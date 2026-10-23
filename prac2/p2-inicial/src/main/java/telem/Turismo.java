@@ -1,0 +1,23 @@
+package telem;
+
+public class Turismo extends Vehiculo {
+
+    int plazas;
+    double capacidadMaletero;
+
+    public Turismo(String matricula, Categoria categoria, int annio,
+        int plazas, double capacidadMaletero
+    ) {
+        super(matricula, categoria, annio);
+        this.plazas = plazas;
+        this.capacidadMaletero = capacidadMaletero;
+    }
+
+    public int getPlazas() {
+        return plazas;
+    }
+
+    public double getCapacidadMaletero() {
+        return capacidadMaletero;
+    }
+}
