@@ -1,7 +1,6 @@
 package telem;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 
 import org.json.JSONObject;
 
@@ -16,6 +15,7 @@ public class Alquiler {
     private Cliente cliente;
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
+    private ICalculadorPrecio calculadorPrecio = new CalculadorPrecioNormal();
 
     private static Alquiler[] alquileres = new Alquiler[1000];
 
@@ -58,10 +58,15 @@ public class Alquiler {
         return fechaFin;
     }
 
+    public void setCalculadorPrecio(ICalculadorPrecio calculadorPrecio) {
+        if (calculadorPrecio == null) {
+            throw new IllegalArgumentException("El calculador no puede ser null");
+        }
+        this.calculadorPrecio = calculadorPrecio;
+    }
+
     public int calcularPrecioAlquiler(LocalDate fechaInicio, LocalDate fechaFin) {
-        // +1 para incluir el dia de inicio
-        int dias = (int) ChronoUnit.DAYS.between(fechaInicio, fechaFin) + 1;
-        return dias * PRECIO_BASE;
+        return calculadorPrecio.calcularPrecioAlquiler(fechaInicio, fechaFin, this.vehiculo);
     }
 
     @Override 
@@ -77,6 +82,9 @@ public class Alquiler {
         Alquiler alquiler1 = new Alquiler(vehiculo1, cliente1, hoy, hoy.plusDays(3));
         
         System.out.println(alquiler1.toString());
+        System.out.println("Precio normal: " + alquiler1.calcularPrecioAlquiler(hoy, hoy.plusDays(3)));
+        alquiler1.setCalculadorPrecio(new CalculadorPrecioClienteFrecuente());
+        System.out.println("Precio cliente frecuente: " + alquiler1.calcularPrecioAlquiler(hoy, hoy.plusDays(3)));
         System.out.println("--------------------------------------------------------");
 
         Vehiculo vehiculo2 = new VehiculoIndustrial("ABC123", Categoria.NORMAL, 2020, 1000, 3);
