@@ -65,6 +65,10 @@ public class Alquiler {
         this.calculadorPrecio = calculadorPrecio;
     }
 
+    public void setPolitica(PoliticasDePrecios politica) {
+        setCalculadorPrecio(FactoriaPoliticasDePrecios.crear(politica));
+    }
+
     public int calcularPrecioAlquiler(LocalDate fechaInicio, LocalDate fechaFin) {
         return calculadorPrecio.calcularPrecioAlquiler(fechaInicio, fechaFin, this.vehiculo);
     }
@@ -85,6 +89,8 @@ public class Alquiler {
         System.out.println("Precio normal: " + alquiler1.calcularPrecioAlquiler(hoy, hoy.plusDays(3)));
         alquiler1.setCalculadorPrecio(new CalculadorPrecioClienteFrecuente());
         System.out.println("Precio cliente frecuente: " + alquiler1.calcularPrecioAlquiler(hoy, hoy.plusDays(3)));
+        alquiler1.setPolitica(PoliticasDePrecios.Oferton);
+        System.out.println("Precio ofertón: " + alquiler1.calcularPrecioAlquiler(hoy, hoy.plusDays(3)));
         System.out.println("--------------------------------------------------------");
 
         Vehiculo vehiculo2 = new VehiculoIndustrial("ABC123", Categoria.NORMAL, 2020, 1000, 3);

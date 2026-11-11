@@ -34,4 +34,27 @@ public class PoliticasPrecioTest {
         alquiler.setCalculadorPrecio(new CalculadorPrecioClienteFrecuente());
         assertEquals(150, alquiler.calcularPrecioAlquiler(inicio, inicio.plusDays(3)));
     }
+
+    @Test
+    public void factoriaPermiteElegirLasCuatroPoliticas() {
+        Alquiler alquiler = new Alquiler(
+            vehiculo, new Cliente("Ana", "12345678A"), inicio, inicio.plusDays(7));
+
+        alquiler.setPolitica(PoliticasDePrecios.Normal);
+        assertEquals(400, alquiler.calcularPrecioAlquiler(inicio, inicio.plusDays(7)));
+
+        alquiler.setPolitica(PoliticasDePrecios.TemporadaAlta);
+        assertEquals(800, alquiler.calcularPrecioAlquiler(inicio, inicio.plusDays(7)));
+
+        alquiler.setPolitica(PoliticasDePrecios.ClienteFrecuente);
+        assertEquals(270, alquiler.calcularPrecioAlquiler(inicio, inicio.plusDays(7)));
+
+        alquiler.setPolitica(PoliticasDePrecios.Oferton);
+        assertEquals(252, alquiler.calcularPrecioAlquiler(inicio, inicio.plusDays(7)));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void factoriaRechazaUnaPoliticaNula() {
+        FactoriaPoliticasDePrecios.crear(null);
+    }
 }
