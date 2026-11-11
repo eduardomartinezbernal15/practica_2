@@ -29,6 +29,19 @@ public class Alquiler {
         this.fechaFin = fechaFin;
     }
 
+    public Alquiler(String jsonString) {
+    this(new JSONObject(jsonString));
+}
+
+    private Alquiler(JSONObject json) {
+    this(
+        FactoriaVehiculos.getVehiculo(json.getJSONObject("vehiculo")),
+        new Cliente(json.getJSONObject("cliente").toString()),
+        LocalDate.parse(json.getString("fechaInicio")),
+        LocalDate.parse(json.getString("fechaFin"))
+    );
+    }
+
     public static Alquiler[] obtenerAlquileres() {
         return alquileres; 
     }
@@ -75,14 +88,16 @@ public class Alquiler {
         Cliente cliente1 = new Cliente("Juan Pérez", "123456789");
         LocalDate hoy = LocalDate.now();
         Alquiler alquiler1 = new Alquiler(vehiculo1, cliente1, hoy, hoy.plusDays(3));
-        
-        System.out.println(alquiler1.toString());
-        System.out.println("--------------------------------------------------------");
 
         Vehiculo vehiculo2 = new VehiculoIndustrial("ABC123", Categoria.NORMAL, 2020, 1000, 3);
         Alquiler alquiler2 = new Alquiler(vehiculo2, cliente1, hoy, hoy.plusDays(3));
 
-        System.out.println(alquiler2.toString());
-        System.out.println("--------------------------------------------------------");
+        String json1 = alquiler1.toString();
+        Alquiler recuperado = new Alquiler(json1);
+
+        System.out.println("Alquiler en JSON: " + json1);
+        System.out.println("Cliente recuperado: " + recuperado.getCliente().getNombre());
+        System.out.println("Tipo de vehículo recuperado: " + recuperado.getVehiculo().getTipo());
+        System.out.println("Fecha de fin recuperada: " + recuperado.getFechaFin());
     }
 }
