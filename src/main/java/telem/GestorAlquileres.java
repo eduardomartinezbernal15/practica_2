@@ -387,7 +387,7 @@ public class GestorAlquileres {
                     break;
                 case 3:
                     System.out.println("Ha seleccionado Vehículo Industrial.");
-                    tipo = "VehículoIndustrial";
+                    tipo = "VehiculoIndustrial";
                     break;
                 default:
                     System.out.println("Opción inválida. Por favor, seleccione un tipo de vehículo válido.");
@@ -474,29 +474,19 @@ public class GestorAlquileres {
     }
 
     LocalDate inicio = LocalDate.now();
-    LocalDate fin = inicio.plusDays(dias);
+    LocalDate fin = inicio.plusDays(dias - 1);
     Alquiler alquiler = new Alquiler(vehiculo, cliente, inicio, fin);
 
     boolean frecuente = esClienteFrecuente(cliente, 3);
-    double precio = (double) Alquiler.PRECIO_BASE * dias;
-    String tarifa = "normal";
-
-            if (frecuente) {
-            tarifa = "cliente frecuente";
-            precio = 0;
-
-            for (int dia = 1; dia <= dias; dia++) {
-            if (dia <= 3) {
-            precio += Alquiler.PRECIO_BASE * 0.80;
-            } else {
-            precio += Alquiler.PRECIO_BASE * 0.60;
-            }
-        }
-    }
+    alquiler.setPolitica(frecuente
+        ? PoliticasDePrecios.ClienteFrecuente
+        : PoliticasDePrecios.Normal);
+    int precio = alquiler.calcularPrecioAlquiler(inicio, fin);
+    String tarifa = frecuente ? "cliente frecuente" : "normal";
 
     agregarAlquiler(alquiler);
     vehiculo.setDisponible(false);
-    System.out.printf("Alquiler realizado. Tarifa %s. Precio: %.2f EUR%n", tarifa, precio);
+    System.out.printf("Alquiler realizado. Tarifa %s. Precio: %.2f EUR%n", tarifa, (double) precio);
 }
 
             private void devolverVehiculo(Cliente cliente) {
