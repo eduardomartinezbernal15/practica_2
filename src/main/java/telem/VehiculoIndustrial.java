@@ -15,6 +15,16 @@ public class VehiculoIndustrial extends Vehiculo {
         this.numeroEjes = numeroEjes;
     }
 
+    public VehiculoIndustrial(String jsonString) {
+    this(new JSONObject(jsonString));
+    }
+
+    VehiculoIndustrial(JSONObject json) {
+    super(json);
+    this.capacidadCarga = json.getInt("capacidadCarga");
+    this.numeroEjes = json.getInt("numeroEjes");
+    }
+
     public int getCapacidadCarga() {
         return capacidadCarga;
     }

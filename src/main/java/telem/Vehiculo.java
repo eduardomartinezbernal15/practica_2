@@ -19,6 +19,15 @@ public abstract class Vehiculo {
         this.annio = annio;
     }
 
+    public Vehiculo(JSONObject json) {
+    this(
+        json.getString("matricula"),
+        Categoria.valueOf(json.getString("categoria")),
+        json.getInt("annio")
+    );
+    this.disponible = json.getBoolean("disponible");
+    }
+
     public String getMatricula() {
         return matricula;
     }
